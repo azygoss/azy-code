@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+
+- Added built-in mission orchestration with persistent objectives, isolated subagents, per-role model profiles, worker handoffs, blocked mission lifecycle, a compact interactive mission status widget, and an orchestrator-first console with parent activity, live worker tabs, run history, and interrupted-run recovery.
+
 ### Fixed
 
 - Fixed opening and listing very large JSONL session files by reading session entries line-by-line instead of materializing the full file as one string ([#5231](https://github.com/earendil-works/pi/issues/5231)).

@@ -3,21 +3,21 @@
 	"name": "dark",
 	"vars": {
 		"cyan": "#00d7ff",
-		"blue": "#5f87ff",
-		"green": "#b5bd68",
-		"red": "#cc6666",
-		"yellow": "#ffff00",
-		"text": "#d4d4d4",
-		"gray": "#808080",
-		"dimGray": "#666666",
-		"darkGray": "#505050",
-		"accent": "#8abeb7",
-		"selectedBg": "#3a3a4a",
-		"userMsgBg": "#343541",
-		"toolPendingBg": "#282832",
-		"toolSuccessBg": "#283228",
-		"toolErrorBg": "#3c2828",
-		"customMsgBg": "#2d2838"
+		"blue": "#607d9f",
+		"green": "#a7bc8d",
+		"red": "#d08383",
+		"yellow": "#d7ba7d",
+		"text": "#d7dde5",
+		"gray": "#89929d",
+		"dimGray": "#68717b",
+		"darkGray": "#4b5561",
+		"accent": "#86b9b2",
+		"selectedBg": "#2f3742",
+		"userMsgBg": "#242b33",
+		"toolPendingBg": "#252b34",
+		"toolSuccessBg": "#243029",
+		"toolErrorBg": "#36272a",
+		"customMsgBg": "#2c2935"
 	},
 	"colors": {
 		"accent": "accent",
@@ -79,8 +79,8 @@
 		"bashMode": "green"
 	},
 	"export": {
-		"pageBg": "#18181e",
-		"cardBg": "#1e1e24",
-		"infoBg": "#3c3728"
+		"pageBg": "#171b20",
+		"cardBg": "#20262d",
+		"infoBg": "#343027"
 	}
 }

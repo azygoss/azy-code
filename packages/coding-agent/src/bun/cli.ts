@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-import { APP_NAME } from "../config.ts";
+import { APP_TITLE } from "../config.ts";
 
-process.title = APP_NAME;
+process.title = APP_TITLE;
 process.emitWarning = (() => {}) as typeof process.emitWarning;
 
 import { restoreSandboxEnv } from "./restore-sandbox-env.ts";

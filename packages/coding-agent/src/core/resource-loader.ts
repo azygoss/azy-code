@@ -9,6 +9,7 @@ export type { ResourceCollision, ResourceDiagnostic } from "./diagnostics.ts";
 
 import { canonicalizePath, isLocalPath, resolvePath } from "../utils/paths.ts";
 import { createEventBus, type EventBus } from "./event-bus.ts";
+import missionsExtension from "./extensions/builtin/missions.ts";
 import { createExtensionRuntime, loadExtensionFromFactory, loadExtensions } from "./extensions/loader.ts";
 import type { Extension, ExtensionFactory, ExtensionRuntime, LoadExtensionsResult } from "./extensions/types.ts";
 import { DefaultPackageManager, type PathMetadata } from "./package-manager.ts";
@@ -149,6 +150,11 @@ export interface DefaultResourceLoaderOptions {
 	appendSystemPromptOverride?: (base: string[]) => string[];
 }
 
+interface ResourceExtensionFactory {
+	factory: ExtensionFactory;
+	path: string;
+}
+
 export class DefaultResourceLoader implements ResourceLoader {
 	private cwd: string;
 	private agentDir: string;
@@ -159,7 +165,7 @@ export class DefaultResourceLoader implements ResourceLoader {
 	private additionalSkillPaths: string[];
 	private additionalPromptTemplatePaths: string[];
 	private additionalThemePaths: string[];
-	private extensionFactories: ExtensionFactory[];
+	private extensionFactories: ResourceExtensionFactory[];
 	private noExtensions: boolean;
 	private noSkills: boolean;
 	private noPromptTemplates: boolean;
@@ -217,7 +223,10 @@ export class DefaultResourceLoader implements ResourceLoader {
 		this.additionalSkillPaths = options.additionalSkillPaths ?? [];
 		this.additionalPromptTemplatePaths = options.additionalPromptTemplatePaths ?? [];
 		this.additionalThemePaths = options.additionalThemePaths ?? [];
-		this.extensionFactories = options.extensionFactories ?? [];
+		this.extensionFactories = [
+			{ factory: missionsExtension, path: "<builtin:missions>" },
+			...(options.extensionFactories ?? []).map((factory, index) => ({ factory, path: `<inline:${index + 1}>` })),
+		];
 		this.noExtensions = options.noExtensions ?? false;
 		this.noSkills = options.noSkills ?? false;
 		this.noPromptTemplates = options.noPromptTemplates ?? false;
@@ -783,8 +792,7 @@ export class DefaultResourceLoader implements ResourceLoader {
 		const extensions: Extension[] = [];
 		const errors: Array<{ path: string; error: string }> = [];
 
-		for (const [index, factory] of this.extensionFactories.entries()) {
-			const extensionPath = `<inline:${index + 1}>`;
+		for (const { factory, path: extensionPath } of this.extensionFactories) {
 			try {
 				const extension = await loadExtensionFromFactory(factory, this.cwd, this.eventBus, runtime, extensionPath);
 				extensions.push(extension);

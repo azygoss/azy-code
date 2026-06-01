@@ -4,10 +4,12 @@
 	"description": "Coding agent CLI with read, bash, edit, write tools and session management",
 	"type": "module",
 	"piConfig": {
-		"configDir": ".pi"
+		"name": "azycode",
+		"title": "Azy Code",
+		"configDir": ".azycode"
 	},
 	"bin": {
-		"pi": "dist/cli.js"
+		"azycode": "dist/cli.js"
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
